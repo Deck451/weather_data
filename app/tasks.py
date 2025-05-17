@@ -1,12 +1,17 @@
 
 from celery import Celery
 import httpx
+import os
+
+
+broker_url = os.environ.get("CELERY_BROKER_URL", "amqp://guest:guest@rabbitmq:5672//")
+backend_url = os.environ.get("CELERY_RESULT_BACKEND", "redis://redis:6379/0")
 
 
 task_queue: Celery = Celery(
     "tasks",
-    broker="amqp://guest:guest@rabbitmq:5672//",
-    backend="redis://redis:6379/0",
+    broker=broker_url,
+    backend=backend_url,
 )
 
 
