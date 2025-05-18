@@ -1,4 +1,3 @@
-
 from celery import Celery
 import httpx
 import os
@@ -26,11 +25,8 @@ def fetch_weather(city: str) -> dict:
         geo_response.raise_for_status()
         geo_data = geo_response.json()
         if not geo_data.get("results"):
-            return {
-                "success": False, 
-                "error": "City not found."
-            }
-        
+            return {"success": False, "error": "City not found."}
+
         # Extract latitude and longitude and get weather data
         latitude = geo_data["results"][0]["latitude"]
         longitude = geo_data["results"][0]["longitude"]

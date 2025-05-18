@@ -13,6 +13,7 @@ app: FastAPI = FastAPI()
 
 class WeatherRequest(BaseModel):
     """Model for weather request."""
+
     city: str
 
 
