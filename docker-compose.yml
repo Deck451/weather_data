@@ -10,6 +10,8 @@ services:
     depends_on:
       - redis
       - rabbitmq
+    volumes:
+      - ./app:/app/app
 
   worker:
     environment:
