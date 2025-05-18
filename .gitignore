@@ -1,2 +1,3 @@
 app/__pycache__/
 .mypy_cache/
+tests/__pycache__/
