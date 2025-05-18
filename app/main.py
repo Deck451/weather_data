@@ -3,6 +3,7 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
+from celery.result import AsyncResult
 
 from app.tasks import fetch_weather
 
@@ -18,7 +19,7 @@ class WeatherRequest(BaseModel):
 @app.post("/weather")
 async def get_weather(request: WeatherRequest) -> JSONResponse:
     """Get the weather for a specific city."""
-    task: dict = fetch_weather.delay(request.city)
+    task: AsyncResult = fetch_weather.delay(request.city)
     return JSONResponse(
         {
             "task_id": task.id,
