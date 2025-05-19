@@ -4,7 +4,7 @@ import uuid
 from unittest.mock import patch, MagicMock
 
 from fastapi.testclient import TestClient
-from fastapi.responses import JSONResponse
+from httpx import Response
 import pytest
 
 from app.main import app
@@ -22,7 +22,7 @@ def test_get_weather() -> None:
         mock_task.id = fake_task_id
         mock_fetch_weather.delay.return_value = mock_task
 
-        response: JSONResponse = client.post(
+        response: Response = client.post(
             "/weather",
             json={"city": f"{uuid.uuid4()}"},
         )
@@ -47,7 +47,7 @@ def test_get_weather_status(state: str) -> None:
             mock_result.result = {f"{uuid.uuid4()}": f"{uuid.uuid4()}"}
         mock_fetch_weather.AsyncResult.return_value = mock_result
 
-        response: JSONResponse = client.get(
+        response: Response = client.get(
             f"/weather/{uuid.uuid4()}",
         )
 
