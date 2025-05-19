@@ -9,7 +9,6 @@ jobs:
       - name: install poetry and dependencies
         run: |
           curl -sLL https://install.python-poetry.org | python3 -
-          # echo "$HOME/.local/bin" >> $GITHUB_PATH
           poetry install --no-interaction --no-ansi --no-root
       - name: check formatting
         run: |
