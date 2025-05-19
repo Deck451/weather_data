@@ -13,6 +13,19 @@ jobs:
       - name: check formatting
         run: |
           poetry run black --check .
+  
+  type_check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+      - name: install poetry and dependencies
+        run: |
+          curl -sLL https://install.python-poetry.org | python3 -
+          poetry install --no-interaction --no-ansi --no-root
+      - name: run type check
+        run: |
+          poetry run mypy .
 
   run_unit_tests:
     runs-on: ubuntu-latest
