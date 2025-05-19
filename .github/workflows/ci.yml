@@ -6,3 +6,13 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v4
+      - name: install poetry
+        run: |
+          curl -sLL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - name: install dependencies
+        run: |
+          poetry install --no-interaction --no-ansi
+      - name: check formatting
+        run: |
+          poetry run black --check .
